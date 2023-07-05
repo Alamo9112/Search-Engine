@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Phillip's Search Engine</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .search-container {
+            text-align: center;
+        }
+        .search-container h1 {
+            margin-bottom: 20px;
+        }
+        .search-container input[type="text"] {
+            width: 300px;
+            padding: 10px;
+        }
+        .search-container button {
+            display: block;
+            width: 100px;
+            height: 35px;
+            margin: 20px auto;
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1>Phillip's Search Engine</h1>
+        <!-- Add your logo here -->
+        <input type="text" placeholder="&#128269; Search" />
+        <button id="searchButton">Search</button>
+        <script>
+            document.getElementById("searchButton").onclick = function () {
+                location.href = "main_page.html";
+            };
+            </script>
+    </div>
+</body>
+</html>
