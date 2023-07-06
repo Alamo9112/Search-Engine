@@ -4,9 +4,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.IOException;
 
-public class HTMLparser {
+public class HTMLParser {
     public static void main(String[] args) {
-        String url = "https://www.wikipedia.org/";
+        String url = "http://example.com";
 
         try {
             // Fetch the HTML content from the URL
@@ -16,7 +16,6 @@ public class HTMLparser {
             extractFromDivs(doc);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.print(e);
         }
     }
 
