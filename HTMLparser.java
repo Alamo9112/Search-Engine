@@ -5,9 +5,12 @@ import org.jsoup.select.Elements;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class HTMLParser {
     private static final String OUTPUT_FILE_PATH = "output.txt";
+    private static Set<Element> visitedElements = new HashSet<>();
 
     public static void main(String[] args) {
         String url = "https://www.wikipedia.org/";
@@ -24,6 +27,9 @@ public class HTMLParser {
     }
 
     private static void extractFromDivs(Element element) {
+        // Add the current element to the visited set
+        visitedElements.add(element);
+
         // Extract links
         Elements links = element.select("a[href]");
         for (Element link : links) {
@@ -49,8 +55,13 @@ public class HTMLParser {
         // Recursively process child div elements
         Elements divs = element.select("div");
         for (Element div : divs) {
-            extractFromDivs(div);
+            if (!visitedElements.contains(div)) {
+                extractFromDivs(div);
+            }
         }
+
+        // Remove the current element from the visited set
+        visitedElements.remove(element);
     }
 
     private static void writeToFile(String content) {
