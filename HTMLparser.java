@@ -2,11 +2,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class HTMLParser {
+    private static final String OUTPUT_FILE_PATH = "output.txt";
+
     public static void main(String[] args) {
-        String url = "http://example.com";
+        String url = "https://www.wikipedia.org/";
 
         try {
             // Fetch the HTML content from the URL
@@ -24,13 +28,13 @@ public class HTMLParser {
         Elements links = element.select("a[href]");
         for (Element link : links) {
             String href = link.attr("href");
-            System.out.println("Link: " + href);
+            writeToFile("Link: " + href);
         }
 
         // Extract text
         String text = element.text();
         if (!text.isEmpty()) {
-            System.out.println("Text: " + text);
+            writeToFile("Text: " + text);
         }
 
         // Extract images
@@ -38,14 +42,23 @@ public class HTMLParser {
         for (Element image : images) {
             String src = image.attr("src");
             String alt = image.attr("alt");
-            System.out.println("Image source: " + src);
-            System.out.println("Image alt: " + alt);
+            writeToFile("Image source: " + src);
+            writeToFile("Image alt: " + alt);
         }
 
         // Recursively process child div elements
         Elements divs = element.select("div");
         for (Element div : divs) {
             extractFromDivs(div);
+        }
+    }
+
+    private static void writeToFile(String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE_PATH, true))) {
+            writer.write(content);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
